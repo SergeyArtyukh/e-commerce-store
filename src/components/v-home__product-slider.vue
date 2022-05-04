@@ -1,0 +1,131 @@
+<template lang="html">
+  <div class="v-home__product-slider-wrapper v-container" uk-slider>
+    <notificationBar
+    :messages="messages"
+
+    >
+    </notificationBar>
+    <div class="product-slider-title">
+      <span>
+        <p>{{sliderTitle}}</p>
+      </span>
+      <span class="arrows-container">
+        <a class="arrow-left" href="#" uk-slider-item="previous">
+          <font-awesome-icon :icon="productSliderArrowLeft"/>
+        </a>
+        <a class="arrow-right" href="#" uk-slider-item="next">
+          <font-awesome-icon :icon="productSliderArrowRight"/>
+        </a>
+      </span>
+    </div>
+    <div class="uk-slider-items uk-child-width-1-2 uk-child-width-1-1@xs uk-child-width-1-3@s uk-child-width-1-4@m uk-child-width-1-5@l uk-child-width-1-6@xl v-product-item-wrapper">
+      <productItem
+      v-for="product in PRODUCTS"
+      :key="product.id"
+      :sliderElem="product"
+      @addToCart="addToCart"
+      ></productItem>
+    </div>
+    <div class="alert-absolute">
+      <span>Ваше сообщение добавленое</span>
+    </div>
+  </div>
+</template>
+
+<script>
+import productItem from './v-home__product-slider/v-product-item.vue'
+import notificationBar from './v-home__notification/v-notification.vue'
+import {mapActions, mapGetters} from 'vuex'
+export default {
+  data () {
+    return {
+      isActive: true,
+      sliderTitle: 'Смартфоны и планшеты',
+      productSliderArrowLeft: 'arrow-left',
+      productSliderArrowRight: 'arrow-right',
+      messages: []
+    }
+  },
+  methods: {
+    ...mapActions([
+      'GET_PRODUCTS_FROM_API',
+      'ADD_TO_CART',
+    ]),
+    addToFavorite () {
+      // alert('Товар добавлен в избранное')
+      console.log(this.sliderElems[0])
+    },
+    addToCart(data) {
+    this.ADD_TO_CART(data)
+    .then(() => {
+      let timeStamp = Date.now().toLocaleString();
+      this.messages.unshift(
+        {
+          text: 'Товар добавлен в корзину',
+          id: timeStamp
+        }
+      )
+    })
+    }
+  },
+  computed: {
+    ...mapGetters ([
+      'PRODUCTS',
+    ]),
+  },
+  mounted() {
+    this.GET_PRODUCTS_FROM_API()
+  },
+  components: {
+    productItem,
+    notificationBar
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.isActive {
+  display: block;
+}
+.alert-absolute {
+  background-color: red;
+  display: inline;
+  padding: 10px 20px;
+
+  position: absolute;
+
+  display: none;
+  span {
+    color: white;
+    font-weight: bold;
+  }
+}
+
+.v-home__product-slider-wrapper {
+  .v-product-item-wrapper {
+    display: flex;
+  }
+  .product-slider-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    p {
+      font-size: 25px;
+      font-weight: bold;
+    }
+    .arrows-container {
+      a {
+        font-size: 20px;
+        color: #AFD785;
+        &:hover {
+          color: green;
+        }
+      }
+      .arrow-left {
+        margin-right: 30px;
+      }
+    }
+  }
+}
+</style>
