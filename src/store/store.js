@@ -30,6 +30,21 @@ const store = new Vuex.Store({
         state.cart.push(product)
       }
     },
+    ADD_TO_FAVORITE: (state, product) => {
+        if (this.FAVORITE.length) {
+          let isProductFavorite = false;
+          this.FAVORITE.map(function (item) {
+            if (item.id === product.id) {
+              isProductFavorite = true;
+            }
+          })
+          if (!isProductFavorite) {
+            this.ADD_TO_FAVORITE(product)
+          }
+        } else {
+          this.ADD_TO_FAVORITE(product)
+        }
+    },
     SET_FAVORITE: (state, product) => {
       state.favorite.push(product)
     },

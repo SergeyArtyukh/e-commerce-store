@@ -5,6 +5,7 @@ import Profile from '../views/vm-profile-page.vue'
 import Comparison from '../views/vm-comparison-page.vue'
 import Marked from '../views/vm-marked-page.vue'
 import Cart from '../views/vm-cart-page.vue'
+import productPage from '../views/vm-product-page.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/shopping-cart',
     name: 'Cart',
     component: Cart
+  },
+  {
+    path: '/product-page',
+    name: 'productPage',
+    component: productPage
   }
   // {
   //   path: '/about',

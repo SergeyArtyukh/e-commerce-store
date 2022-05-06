@@ -18,12 +18,14 @@
         </a>
       </span>
     </div>
-    <div class="uk-slider-items uk-child-width-1-2 uk-child-width-1-1@xs uk-child-width-1-3@s uk-child-width-1-4@m uk-child-width-1-5@l uk-child-width-1-6@xl v-product-item-wrapper">
+    <div class="v-product-item-wrapper uk-slider-items uk-child-width-1-2 uk-child-width-1-1@xs uk-child-width-1-3@s uk-child-width-1-4@m uk-child-width-1-5@l uk-child-width-1-6@xl">
       <productItem
       v-for="product in PRODUCTS"
       :key="product.id"
       :sliderElem="product"
       @addToCart="addToCart"
+      @addToFavorite="addToFavorite"
+      @productCardLink="productCardLink"
       ></productItem>
     </div>
     <div class="alert-absolute">
@@ -50,10 +52,22 @@ export default {
     ...mapActions([
       'GET_PRODUCTS_FROM_API',
       'ADD_TO_CART',
+      'ADD_TO_FAVORITE'
     ]),
-    addToFavorite () {
-      // alert('Товар добавлен в избранное')
-      console.log(this.sliderElems[0])
+    productCardLink(id) {
+      this.$router.push({name: 'productPage', query: {'product' : id}})
+    },
+    addToFavorite (data) {
+      this.ADD_TO_FAVORITE(data)
+      .then(() => {
+        let timeStamp = Date.now().toLocaleString();
+        this.messages.unshift(
+          {
+            text: 'Товар добавлен в избранное',
+            id: timeStamp
+          }
+        )
+      })
     },
     addToCart(data) {
     this.ADD_TO_CART(data)

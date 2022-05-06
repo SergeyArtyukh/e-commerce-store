@@ -37,7 +37,7 @@ export default {
       if (this.messages.length) {
         setTimeout(function () {
           vm.messages.splice(vm.messages.length -1, 1)
-        }, 5000)
+        }, 1000)
       }
     }
   },
@@ -56,8 +56,8 @@ export default {
 * {transition: all .6s ease;}
 .v-home__notification-wrapper {
   position: fixed;
-  top: 10px;
-  right: 10px;
+  top: 43px;
+  right: 40px;
   display: flex;
   flex-direction: column-reverse;
   .notification-container {
@@ -66,11 +66,12 @@ export default {
     justify-content: center;
     align-items: center;
     background-color: green;
-    width: 200px;
+    width: 100%;
     height: 20px;
     padding: 10px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 13px;
+    font-weight: bold;
     margin-bottom: 20px;
     z-index: 10;
     svg {

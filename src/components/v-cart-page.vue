@@ -1,6 +1,11 @@
 <template lang="html">
   <div class="v-container v-cart-page-wrapper">
     <p class="talign-left">{{cartTitle}}</p>
+    <notificationBar
+    :messages="messages"
+
+    >
+    </notificationBar>
     <div v-if="CART.length" class="v-cart-page-container">
       <div class="v-cart-product-container">
         <div
@@ -54,12 +59,14 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
+import notificationBar from './v-home__notification/v-notification.vue'
 export default {
   data () {
     return {
       isFavorite: false,
       cartTitle: 'Корзина',
       emptyCart: 'Ваша корзина пуста',
+      messages: [],
       productCart: [
         {
           card: 'title'
@@ -91,23 +98,21 @@ export default {
       this.INCREMENT_CART_QUANTITY(index)
     },
     addToFavorite(product) {
-      if (this.FAVORITE.length) {
-        let isProductFavorite = false;
-        this.FAVORITE.map(function (item) {
-          if (item.id === product.id) {
-            isProductFavorite = true;
-            return item.isFavorite = true;
+      this.ADD_TO_FAVORITE(product)
+      .then(() => {
+        let timeStamp = Date.now().toLocaleString();
+        this.messages.unshift(
+          {
+            text: 'Товар добавлен в избранное',
+            id: timeStamp
           }
-          this.isFavorite = true;
-        })
-        if (!isProductFavorite) {
-          this.ADD_TO_FAVORITE(product)
-        }
-      } else {
-        this.ADD_TO_FAVORITE(product)
-      }
+        )
+      })
     }
   },
+  components: {
+    notificationBar
+  }
 }
 </script>
 

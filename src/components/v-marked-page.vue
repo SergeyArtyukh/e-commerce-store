@@ -2,18 +2,36 @@
   <div class="v-container">
     <div class="v-marked-page-wrapper">
       <p>{{markedPageTitle}}</p>
-      <span>{{vremenno}}</span>
+      <productItem
+      v-for="productInFavorite in FAVORITE"
+      :key="productInFavorite.id"
+      :sliderElem="productInFavorite"
+      ></productItem>
+      <span v-if="FAVORITE.length < 1">{{vremenno}}</span>
     </div>
   </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+import productItem from './v-home__product-slider/v-product-item.vue'
 export default {
   data () {
     return {
       markedPageTitle: 'Избранное',
       vremenno: 'Список избранного пуст'
     }
+  },
+  methods: {
+
+  },
+  computed: {
+    ...mapGetters ([
+      'FAVORITE'
+    ])
+  },
+  components: {
+    productItem
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="v-product-item-wrapper">
+  <div class="v-product-item-wrapper" @click="productCardLink">
     <div class="slider-container" tabindex="-1">
       <ul
       >
@@ -19,6 +19,7 @@
           <div class="right-side">
             <div class="favorite-compare-buttons">
               <span
+              @click="addToFavorite()"
               >
                 <font-awesome-icon :icon="sliderElem.iconFavorite"/>
               </span>
@@ -35,7 +36,12 @@
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
 export default {
+  data () {
+    return {
+    }
+  },
   props: {
     sliderElem: {
       type: Object,
@@ -45,11 +51,28 @@ export default {
     }
   },
   methods: {
+    ...mapActions ([
+      'ADD_TO_FAVORITE'
+    ]),
     addToCart() {
       this.$emit('addToCart', this.sliderElem);
+    },
+    addToFavorite() {
+      this.$emit('addToFavorite')
+    },
+    productCardLink() {
+      this.$emit('productCardLink', this.sliderElem.id)
     }
   },
+  computed: {
+    ...mapGetters ([
+      'FAVORITE',
+      'PRODUCTS'
+    ])
+  },
   mounted() {
+  },
+  components: {
   }
 }
 </script>
