@@ -9,6 +9,7 @@ const store = new Vuex.Store({
     products: [],
     cart: [],
     favorite: [],
+    comparison: [],
   },
   mutations: {
     SET_PRODUCTS_TO_STATE: (state, products) => {
@@ -99,6 +100,9 @@ const store = new Vuex.Store({
     },
     FAVORITE(state) {
       return state.favorite;
+    },
+    COMPARISON(state) {
+      return state.comparison;
     },
     TOTAL(state) {
       return state.cart.reduce((carry, product) => {

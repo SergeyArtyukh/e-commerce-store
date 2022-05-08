@@ -65,7 +65,7 @@ export default {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: green;
+    background-color: #86D325;
     width: 100%;
     height: 20px;
     padding: 10px;

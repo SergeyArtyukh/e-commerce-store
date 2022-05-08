@@ -8,7 +8,9 @@
       >
         <a :class="underNavbarElem.arrowDown" href="#">
           <span :class="underNavbarElem.class">{{underNavbarElem.title}}</span>
-          <span class="hello"><font-awesome-icon :icon="underNavbarElem.icon"/></span>
+          <span class="hello">
+            <font-awesome-icon :icon="underNavbarElem.icon"/>
+          </span>
         </a>
       </div>
     </div>
@@ -21,22 +23,28 @@ export default {
     return {
       underNavbarElems: [
         {
-          title: 'Смартфоны и планшеты'
+          title: 'Смартфоны и планшеты',
+          icon: ''
         },
         {
-          title: 'Ноутбуки, планшеты и компьютеры'
+          title: 'Ноутбуки, планшеты и компьютеры',
+          icon: ''
         },
         {
-          title: 'Техника для дома'
+          title: 'Техника для дома',
+          icon: ''
         },
         {
-          title: 'Игры и развлечения'
+          title: 'Игры и развлечения',
+          icon: ''
         },
         {
-          title: 'Телевизоры, Аудио-видео, Hi-Fi'
+          title: 'Телевизоры, Аудио-видео, Hi-Fi',
+          icon: ''
         },
         {
-          title: 'Фото и видеотехника'
+          title: 'Фото и видеотехника',
+          icon: ''
         },
         {
           title: 'Еще',

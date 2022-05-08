@@ -34,13 +34,13 @@
           <span>{{navButtonEl.title}}</span>
           <div class="v-cart-counter">
             <!-- <span
-            v-if="navButtonEl.title == 'Корзина' && CART.length">
-              {{CART.length}}
+            v-text="counterArrays"
+            v-if="counterArrays(navButtonEl)">
             </span> -->
-            <span
+            <!-- <span
             v-if="CART.length || FAVORITE.length">
             {{CART.length}}
-            </span>
+            </span> -->
           </div>
         </router-link>
         <!-- <a :to="navButtonEl.linkPage" href="#">
@@ -93,10 +93,22 @@ export default {
     ...mapGetters ([
       'CART',
       'FAVORITE',
+      'COMPARISON',
       'COUNTER_LENGTH',
-    ])
+    ]),
   },
   methods: {
+    // counterArrays (navButtonEl) {
+    //   if (navButtonEl.title == 'Корзина') {
+    //     return this.CART.length
+    //   }
+    //   if (navButtonEl.title == 'Избранное') {
+    //     return this.FAVORITE.length
+    //   }
+    //   if (navButtonEl.title == 'Сравнение') {
+    //     return this.COMPARISON.length
+    //   }
+    // },
     catalogPopup () {
       this.isVisible = !this.isVisible
       if (this.isVisible === false) {

@@ -1,18 +1,18 @@
 <template lang="html">
-  <div class="v-product-item-wrapper" @click="productCardLink">
+  <div class="v-product-item-wrapper">
     <div class="slider-container" tabindex="-1">
       <ul
       >
         <li
         >
           <div class="left-side">
-            <div class="img-container">
+            <div class="img-container" @click="productCardLink">
               <img :src="require('../../assets/images/product-slider-imgs/' + sliderElem.url)" alt="#">
               <div :class="sliderElem.classOfNewDevice" class="products-discount-container">
                 <span>{{sliderElem.productDiscount + sliderElem.productDiscountSign}}</span>
               </div>
+              <span class="card-text">{{sliderElem.text}}</span>
             </div>
-            <span class="card-text">{{sliderElem.text}}</span>
             <span class="old-price">{{sliderElem.oldPrice + sliderElem.currencySign}}</span>
             <span class="new-price">{{sliderElem.newPrice + sliderElem.currencySign}}</span>
           </div>
@@ -58,7 +58,7 @@ export default {
       this.$emit('addToCart', this.sliderElem);
     },
     addToFavorite() {
-      this.$emit('addToFavorite')
+      this.$emit('addToFavorite', this.sliderElem)
     },
     productCardLink() {
       this.$emit('productCardLink', this.sliderElem.id)
@@ -84,6 +84,7 @@ export default {
         display: flex;
         flex-direction: row;
         justify-content: center;
+        padding: 0;
         li {
           display: flex;
           flex-direction: row;
@@ -97,12 +98,25 @@ export default {
             align-items: baseline;
             .img-container {
               position: relative;
+              &:hover {
+                cursor: pointer;
+                .card-text {
+                  color: #86D325;
+                }
+              }
               img {
-                width: 50%;
+                width: 55%;
+              }
+              .card-text {
+                display: flex;
+                font-size: 14px;
+                font-weight: bold;
+                text-align: left;
+                margin-top: 10px;
               }
               .products-discount-container {
                 position: absolute;
-                left: 3px;
+                left: -15px;
                 top: 3px;
 
                 background-color: #E44441;
@@ -118,11 +132,6 @@ export default {
               .new-device-class {
                 background-color: #76BC1F;
               }
-            }
-            .card-text {
-              font-weight: bold;
-              // margin: 15px 0 10px 0;
-              text-align: left;
             }
             .old-price {
               text-decoration: line-through;
