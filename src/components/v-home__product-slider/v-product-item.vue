@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="v-product-item-wrapper">
+  <div class="v-product-item-container">
     <div class="slider-container" tabindex="-1">
       <ul
       >
@@ -21,9 +21,9 @@
               <span
               @click="addToFavorite()"
               >
-                <font-awesome-icon :icon="sliderElem.iconFavorite"/>
+                <font-awesome-icon :class="{active: sliderElem.isFavorite}" :icon="sliderElem.iconFavorite"/>
               </span>
-              <span><font-awesome-icon :icon="sliderElem.iconCompare"/></span>
+              <span><font-awesome-icon :class="{active: sliderElem.isCompare}" :icon="sliderElem.iconCompare"/></span>
             </div>
             <div @click="addToCart" class="add-to-cart-button">
               <span><font-awesome-icon :icon="sliderElem.iconAddToCart"/></span>
@@ -78,7 +78,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .v-product-item-wrapper {
+  .v-product-item-container {
     .slider-container {
       ul {
         display: flex;
@@ -116,7 +116,7 @@ export default {
               }
               .products-discount-container {
                 position: absolute;
-                left: -15px;
+                left: -10px;
                 top: 3px;
 
                 background-color: #E44441;
@@ -155,7 +155,15 @@ export default {
             .favorite-compare-buttons {
               display: flex;
               flex-direction: column;
-
+              .active {
+                color: #81c625;
+              }
+              // .active-favorite,
+              // .active-comparison {
+              //     .active {
+              //       color: green;
+              //     }
+              // }
               span {
                 font-size: 20px;
 

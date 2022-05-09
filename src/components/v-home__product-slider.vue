@@ -28,9 +28,6 @@
       @productCardLink="productCardLink"
       ></productItem>
     </div>
-    <div class="alert-absolute">
-      <span>Ваше сообщение добавленое</span>
-    </div>
   </div>
 </template>
 
@@ -57,8 +54,8 @@ export default {
     productCardLink(id) {
       this.$router.push({name: 'productPage', query: {'product' : id}})
     },
-    addToFavorite (data) {
-      this.ADD_TO_FAVORITE(data)
+    addToFavorite (product) {
+      this.ADD_TO_FAVORITE(product)
       .then(() => {
         let timeStamp = Date.now().toLocaleString();
         this.messages.unshift(
@@ -68,6 +65,11 @@ export default {
           }
         )
       })
+      // if (product.isFavorite = true) {
+      //   this.isFavorite = !this.isFavorite
+      // } else {
+      //   console.log('nichego');
+      // }
     },
     addToCart(data) {
     this.ADD_TO_CART(data)

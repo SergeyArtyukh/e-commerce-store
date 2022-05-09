@@ -33,10 +33,10 @@
           <font-awesome-icon :icon="navButtonEl.icon"/>
           <span>{{navButtonEl.title}}</span>
           <div class="v-cart-counter">
-            <!-- <span
+            <span
             v-text="counterArrays"
             v-if="counterArrays(navButtonEl)">
-            </span> -->
+            </span>
             <!-- <span
             v-if="CART.length || FAVORITE.length">
             {{CART.length}}
@@ -98,17 +98,17 @@ export default {
     ]),
   },
   methods: {
-    // counterArrays (navButtonEl) {
-    //   if (navButtonEl.title == 'Корзина') {
-    //     return this.CART.length
-    //   }
-    //   if (navButtonEl.title == 'Избранное') {
-    //     return this.FAVORITE.length
-    //   }
-    //   if (navButtonEl.title == 'Сравнение') {
-    //     return this.COMPARISON.length
-    //   }
-    // },
+    counterArrays (navButtonEl) {
+      if (navButtonEl.title === 'Корзина') {
+        return this.CART.length
+      }
+      if (navButtonEl.title === 'Избранное') {
+        return this.FAVORITE.length
+      }
+      if (navButtonEl.title === 'Сравнение') {
+        return this.COMPARISON.length
+      }
+    },
     catalogPopup () {
       this.isVisible = !this.isVisible
       if (this.isVisible === false) {

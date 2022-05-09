@@ -1,29 +1,53 @@
 <template lang="html">
   <div class="v-container">
+    <notificationBar
+    :messages="messages"
+
+    >
+    </notificationBar>
     <div class="v-marked-page-wrapper">
       <p>{{markedPageTitle}}</p>
-      <productItem
-      v-for="productInFavorite in FAVORITE"
-      :key="productInFavorite.id"
-      :sliderElem="productInFavorite"
-      ></productItem>
+      <div class="marked-conainer">
+        <productItem
+        v-for="productInFavorite in FAVORITE"
+        :key="productInFavorite.id"
+        :sliderElem="productInFavorite"
+        @addToFavorite="removeFromFavorite"
+        ></productItem>
+      </div>
       <span v-if="FAVORITE.length < 1">{{vremenno}}</span>
     </div>
   </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 import productItem from './v-home__product-slider/v-product-item.vue'
+import notificationBar from './v-home__notification/v-notification.vue'
 export default {
   data () {
     return {
       markedPageTitle: 'Избранное',
-      vremenno: 'Список избранного пуст'
+      vremenno: 'Список избранного пуст',
+      messages: []
     }
   },
   methods: {
-
+    ...mapActions([
+      'REMOVE_FROM_FAVORITE'
+    ]),
+    removeFromFavorite(productInFavorite) {
+      this.REMOVE_FROM_FAVORITE(productInFavorite)
+      .then(() => {
+        let timeStamp = Date.now().toLocaleString();
+        this.messages.unshift(
+          {
+            text: 'Товар удален из избранного',
+            id: timeStamp
+          }
+        )
+      })
+    }
   },
   computed: {
     ...mapGetters ([
@@ -31,7 +55,8 @@ export default {
     ])
   },
   components: {
-    productItem
+    productItem,
+    notificationBar
   }
 }
 </script>
@@ -42,6 +67,9 @@ export default {
   flex-direction: column;
   align-items: baseline;
   padding: 15px 0;
+  .marked-conainer {
+    display: flex;
+  }
   p {
     font-size: 15px;
     font-weight: bold;

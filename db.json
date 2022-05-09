@@ -2,6 +2,7 @@
   "sliderElems": [
   {
     "isFavorite": false,
+    "isCompare": false,
     "quantity": 1,
     "id": "0",
     "article": "279",
@@ -25,6 +26,7 @@
   },
   {
     "isFavorite": false,
+    "isCompare": false,
     "quantity": 1,
     "id": "1",
     "article": "12379",
@@ -49,6 +51,7 @@
   },
   {
     "isFavorite": false,
+    "isCompare": false,
     "quantity": 1,
     "id": "2",
     "article": "4979",
@@ -72,6 +75,7 @@
   },
   {
     "isFavorite": false,
+    "isCompare": false,
     "quantity": 1,
     "id": "3",
     "article": "11979",
@@ -95,6 +99,7 @@
   },
   {
     "isFavorite": false,
+    "isCompare": false,
     "quantity": 1,
     "id": "4",
     "article": "14579",
@@ -118,6 +123,7 @@
   },
   {
     "isFavorite": false,
+    "isCompare": false,
     "quantity": 1,
     "id": "5",
     "article": "14979",
@@ -141,6 +147,7 @@
   },
   {
     "isFavorite": false,
+    "isCompare": false,
     "quantity": 1,
     "id": "6",
     "url": "slider-img1.jpeg",

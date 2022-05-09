@@ -31,26 +31,53 @@ const store = new Vuex.Store({
         state.cart.push(product)
       }
     },
-    ADD_TO_FAVORITE: (state, product) => {
-        if (this.FAVORITE.length) {
+    SET_FAVORITE: (state, product) => {
+        if (state.favorite.length) {
           let isProductFavorite = false;
-          this.FAVORITE.map(function (item) {
+          state.favorite.map(function (item) {
             if (item.id === product.id) {
               isProductFavorite = true;
+              product.isFavorite = !product.isFavorite;
+              state.favorite.splice(product.id, 1)
+              // console.log(product.id + '1 колонка');
             }
           })
           if (!isProductFavorite) {
-            this.ADD_TO_FAVORITE(product)
+            state.favorite.push(product)
+            // product.isFavorite = true;
+            // console.log(product + '2колонка');
           }
         } else {
-          this.ADD_TO_FAVORITE(product)
+          state.favorite.push(product)
+          product.isFavorite = !product.isFavorite;
+          // console.log( '3 колонка');
         }
     },
-    SET_FAVORITE: (state, product) => {
-      state.favorite.push(product)
-    },
+    // SET_FAVORITE: (state, product) => {
+    //   state.favorite.push(product)
+    // },
     SPLICE_CART: (state, index) => {
       state.cart.splice(index, 1)
+    },
+    SPLICE_FAVORITE: (state, productInFavorite) => {
+      if (state.favorite.length) {
+        let isProductFavorite = false;
+        state.favorite.map(function (item) {
+          if (item.id === productInFavorite.id) {
+            isProductFavorite = true;
+            state.favorite.splice(productInFavorite.id, 1)
+            // console.log(productInFavorite.id + '1 колонка');
+          }
+        })
+        if (!isProductFavorite) {
+          state.favorite.splice(productInFavorite.id, 1)
+          // product.isFavorite = true;
+          // console.log(productInFavorite + '2колонка');
+        }
+      } else {
+        state.favorite.splice(productInFavorite.id, 1)
+        // console.log( '3 колонка');
+      }
     },
     INCREMENT: (state, index) => {
       state.cart[index].quantity++
@@ -70,6 +97,9 @@ const store = new Vuex.Store({
     },
     REMOVE_FROM_CART({commit}, index) {
       commit('SPLICE_CART', index);
+    },
+    REMOVE_FROM_FAVORITE({commit}, product) {
+      commit('SPLICE_FAVORITE', product);
     },
     DECREMENT_CART_QUANTITY({commit}, index) {
       commit('DECREMENT', index);
@@ -116,7 +146,7 @@ const store = new Vuex.Store({
     //     if (state.favorite.length) {
     //       return state.favorite.length
     //     } else {
-    //       console.log('пошел нахуй!');
+    //       console.log('не надо так;)');
     //     }
     //   }
     // }
