@@ -33,14 +33,16 @@
           <font-awesome-icon :icon="navButtonEl.icon"/>
           <span>{{navButtonEl.title}}</span>
           <div class="v-cart-counter">
-            <span
-            v-text="counterArrays"
-            v-if="counterArrays(navButtonEl)">
-            </span>
             <!-- <span
-            v-if="CART.length || FAVORITE.length">
-            {{CART.length}}
+            v-text="counterArrays"
+            >
             </span> -->
+
+            <span
+            v-if="CART.length || FAVORITE.length"
+            >
+            {{counterArrays(index)}}
+            </span>
           </div>
         </router-link>
         <!-- <a :to="navButtonEl.linkPage" href="#">
@@ -94,18 +96,15 @@ export default {
       'CART',
       'FAVORITE',
       'COMPARISON',
-      'COUNTER_LENGTH',
     ]),
   },
   methods: {
-    counterArrays (navButtonEl) {
-      if (navButtonEl.title === 'Корзина') {
+    counterArrays (index) {
+      if (this.navButtonElems[index].title === 'Корзина' && this.CART.length > 0) {
         return this.CART.length
-      }
-      if (navButtonEl.title === 'Избранное') {
+      } else if (this.navButtonElems[index].title === 'Избранное' && this.FAVORITE.length > 0) {
         return this.FAVORITE.length
-      }
-      if (navButtonEl.title === 'Сравнение') {
+      } else if (this.navButtonElems[index].title === 'Сравнение' && this.COMPARISON.length > 0){
         return this.COMPARISON.length
       }
     },
@@ -134,6 +133,9 @@ export default {
     //     }
     //   }
     // }
+  },
+  watch: {
+
   },
   data () {
     return {

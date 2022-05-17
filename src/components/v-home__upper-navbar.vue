@@ -7,7 +7,7 @@
       :key="index"
       >
       <a href="#">
-        <span><font-awesome-icon :icon="upperNavbarElem.icon"/></span>
+        <span><font-awesome-icon v-if="upperNavbarElem.icon" :icon="upperNavbarElem.icon"/></span>
         <span>{{upperNavbarElem.title}}</span>
       </a>
       </span>

@@ -39,18 +39,18 @@ const store = new Vuex.Store({
               isProductFavorite = true;
               product.isFavorite = !product.isFavorite;
               state.favorite.splice(product.id, 1)
-              // console.log(product.id + '1 колонка');
+              console.log(product.id +'1 колонка');
             }
           })
           if (!isProductFavorite) {
             state.favorite.push(product)
-            // product.isFavorite = true;
-            // console.log(product + '2колонка');
+            product.isFavorite = true;
+            console.log('2колонка');
           }
         } else {
           state.favorite.push(product)
           product.isFavorite = !product.isFavorite;
-          // console.log( '3 колонка');
+          console.log( '3 колонка');
         }
     },
     // SET_FAVORITE: (state, product) => {
@@ -64,14 +64,13 @@ const store = new Vuex.Store({
         let isProductFavorite = false;
         state.favorite.map(function (item) {
           if (item.id === productInFavorite.id) {
-            isProductFavorite = true;
+            isProductFavorite = !isProductFavorite;
             state.favorite.splice(productInFavorite.id, 1)
-            // console.log(productInFavorite.id + '1 колонка');
+            console.log('1 колонка');
           }
         })
         if (!isProductFavorite) {
           state.favorite.splice(productInFavorite.id, 1)
-          // product.isFavorite = true;
           // console.log(productInFavorite + '2колонка');
         }
       } else {
@@ -140,16 +139,6 @@ const store = new Vuex.Store({
           return carry;
       }, 0);
     },
-    // COUNTER_LENGTH(state) {
-    //   if (state.cart.length) {
-    //     return state.cart.length
-    //     if (state.favorite.length) {
-    //       return state.favorite.length
-    //     } else {
-    //       console.log('не надо так;)');
-    //     }
-    //   }
-    // }
   },
   modules: {
   }

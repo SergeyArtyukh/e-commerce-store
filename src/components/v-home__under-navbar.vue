@@ -9,7 +9,7 @@
         <a :class="underNavbarElem.arrowDown" href="#">
           <span :class="underNavbarElem.class">{{underNavbarElem.title}}</span>
           <span class="hello">
-            <font-awesome-icon :icon="underNavbarElem.icon"/>
+            <font-awesome-icon v-if="underNavbarElem.icon" :icon="underNavbarElem.icon"/>
           </span>
         </a>
       </div>
