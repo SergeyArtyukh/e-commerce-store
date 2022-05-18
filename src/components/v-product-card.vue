@@ -8,13 +8,13 @@
         <div class="under-title-container">
           <div class="upper-buttons">
             <span>ЗВЕЗДОЧКИ</span>
-            <span class="favorite-button" :class="{addedToFavorite: isFavorite}">
+            <span :class="{active: product.isFavorite}" class="favorite-button">
               <font-awesome-icon :icon="product.iconFavorite"/>
-              <button type="button">В избранное</button>
+              <button @click="addToFavorite" type="button">В избранное</button>
             </span>
-            <span class="comparison-button" :class="{addedToComparison: isComparison}">
+            <span :class="{active: product.isCompare}" class="comparison-button">
               <font-awesome-icon :icon="product.iconCompare"/>
-              <button type="button">Добавить в сравнение</button>
+              <button @click="addToComparison" type="button">Добавить в сравнение</button>
             </span>
           </div>
           <div class="article-container">
@@ -150,7 +150,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 export default {
   data() {
     return {
@@ -172,6 +172,16 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'ADD_TO_FAVORITE',
+      'ADD_TO_COMPARISON'
+    ]),
+    addToFavorite(product) {
+      this.ADD_TO_FAVORITE(product);
+    },
+    addToComparison(product) {
+      this.ADD_TO_COMPARISON(product);
+    }
   }
 }
 </script>
@@ -190,6 +200,9 @@ export default {
       padding-bottom: 15px;
       border-bottom: 1px dotted lightgrey;
       .upper-buttons {
+        .active {
+          color: green;
+        }
         .favorite-button,
         .comparison-button {
           button {
@@ -212,6 +225,11 @@ export default {
       display: flex;
       justify-content: space-evenly;
       width: 75%;
+      .device-image {
+        img {
+          width: 30%;
+        }
+      }
       .device-info {
         text-align: left;
         .device-memory {

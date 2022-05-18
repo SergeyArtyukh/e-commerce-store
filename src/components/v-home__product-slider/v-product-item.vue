@@ -23,7 +23,11 @@
               >
                 <font-awesome-icon :class="{active: sliderElem.isFavorite}" :icon="sliderElem.iconFavorite"/>
               </span>
-              <span><font-awesome-icon :class="{active: sliderElem.isCompare}" :icon="sliderElem.iconCompare"/></span>
+              <span
+              @click="addToComparison()"
+              >
+                <font-awesome-icon :class="{active: sliderElem.isCompare}" :icon="sliderElem.iconCompare"/>
+              </span>
             </div>
             <div @click="addToCart" class="add-to-cart-button">
               <span><font-awesome-icon :icon="sliderElem.iconAddToCart"/></span>
@@ -59,6 +63,9 @@ export default {
     },
     addToFavorite() {
       this.$emit('addToFavorite', this.sliderElem)
+    },
+    addToComparison() {
+      this.$emit('addToComparison', this.sliderElem)
     },
     productCardLink() {
       this.$emit('productCardLink', this.sliderElem.id)

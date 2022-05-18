@@ -25,6 +25,7 @@
       :sliderElem="product"
       @addToCart="addToCart"
       @addToFavorite="addToFavorite"
+      @addToComparison="addToComparison"
       @productCardLink="productCardLink"
       ></productItem>
     </div>
@@ -49,7 +50,8 @@ export default {
     ...mapActions([
       'GET_PRODUCTS_FROM_API',
       'ADD_TO_CART',
-      'ADD_TO_FAVORITE'
+      'ADD_TO_FAVORITE',
+      'ADD_TO_COMPARISON'
     ]),
     productCardLink(id) {
       this.$router.push({name: 'productPage', query: {'product' : id}})
@@ -70,6 +72,18 @@ export default {
       // } else {
       //   console.log('nichego');
       // }
+    },
+    addToComparison(product) {
+      this.ADD_TO_COMPARISON(product)
+      .then(() => {
+        let timeStamp = Date.now().toLocaleString();
+        this.messages.unshift(
+          {
+            text: 'Товар добавлен в сравнение',
+            id: timeStamp
+          }
+        )
+      })
     },
     addToCart(data) {
     this.ADD_TO_CART(data)

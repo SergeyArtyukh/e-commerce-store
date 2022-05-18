@@ -38,7 +38,7 @@ const store = new Vuex.Store({
             if (item.id === product.id) {
               isProductFavorite = true;
               product.isFavorite = !product.isFavorite;
-              state.favorite.splice(product.id, 1)
+              state.favorite.splice(product.id)
               console.log(product.id +'1 колонка');
             }
           })
@@ -52,6 +52,28 @@ const store = new Vuex.Store({
           product.isFavorite = !product.isFavorite;
           console.log( '3 колонка');
         }
+    },
+    SET_COMPARISON: (state, product) => {
+      if (state.comparison.length) {
+        let isProductCompare = false;
+        state.comparison.map(function (item) {
+          if (item.id === product.id) {
+            isProductCompare = true;
+            product.isCompare = !product.isCompare;
+            state.comparison.splice(product.id, 1)
+            console.log(product.id +'1 колонка');
+          }
+        })
+        if (!isProductCompare) {
+          state.comparison.push(product)
+          product.isCompare = true;
+          console.log('2колонка');
+        }
+      } else {
+        state.comparison.push(product)
+        product.isCompare = !product.isCompare;
+        console.log( '3 колонка');
+      }
     },
     // SET_FAVORITE: (state, product) => {
     //   state.favorite.push(product)
@@ -93,6 +115,9 @@ const store = new Vuex.Store({
     },
     ADD_TO_FAVORITE({commit}, product) {
       commit('SET_FAVORITE', product)
+    },
+    ADD_TO_COMPARISON({commit}, product) {
+      commit('SET_COMPARISON', product)
     },
     REMOVE_FROM_CART({commit}, index) {
       commit('SPLICE_CART', index);
