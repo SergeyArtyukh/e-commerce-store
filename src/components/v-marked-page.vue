@@ -9,10 +9,11 @@
       <p>{{markedPageTitle}}</p>
       <div class="marked-conainer">
         <productItem
-        v-for="productInFavorite in FAVORITE"
-        :key="productInFavorite.id"
+        v-for="(productInFavorite, index) in FAVORITE"
+        :key="index"
         :sliderElem="productInFavorite"
         @addToFavorite="removeFromFavorite"
+        @addToCart="addToCart"
         ></productItem>
       </div>
       <span v-if="FAVORITE.length < 1">{{vremenno}}</span>
@@ -34,10 +35,23 @@ export default {
   },
   methods: {
     ...mapActions([
-      'REMOVE_FROM_FAVORITE'
+      'REMOVE_FROM_FAVORITE',
+      'ADD_TO_CART'
     ]),
-    removeFromFavorite(productInFavorite) {
-      this.REMOVE_FROM_FAVORITE(productInFavorite)
+    addToCart (productInFavorite) {
+      this.ADD_TO_CART(productInFavorite)
+      .then(() => {
+        let timeStamp = Date.now().toLocaleString();
+        this.messages.unshift(
+          {
+            text: 'Товар добавлен в корзину',
+            id: timeStamp
+          }
+        )
+      })
+    },
+    removeFromFavorite(index) {
+      this.REMOVE_FROM_FAVORITE(index)
       .then(() => {
         let timeStamp = Date.now().toLocaleString();
         this.messages.unshift(

@@ -10,11 +10,11 @@
             <span>ЗВЕЗДОЧКИ</span>
             <span :class="{active: product.isFavorite}" class="favorite-button">
               <font-awesome-icon :icon="product.iconFavorite"/>
-              <button @click="addToFavorite" type="button">В избранное</button>
+              <button @click="addToFavorite(product)" type="button">В избранное</button>
             </span>
             <span :class="{active: product.isCompare}" class="comparison-button">
               <font-awesome-icon :icon="product.iconCompare"/>
-              <button @click="addToComparison" type="button">Добавить в сравнение</button>
+              <button @click="addToComparison(product)" type="button">Добавить в сравнение</button>
             </span>
           </div>
           <div class="article-container">

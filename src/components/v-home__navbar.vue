@@ -68,19 +68,18 @@
           <router-link :to="{ name: '', params: {} }"><span>{{popElemText.title}}</span></router-link>
             <div
             class="hide-text-container"
-            :class="{'is-active' : isActive, 'not-active' : !isActive}"
             v-for="(popElemTextLast, index) in popElemText.popElemTextLasts"
             :key="index"
             >
-              <router-link :to="{ name: '', params: {} }"><span>{{popElemTextLast.title}}</span></router-link>
+              <router-link v-if="popElemText.isActive" :to="{ name: '', params: {} }"><span>{{popElemTextLast.title}}</span></router-link>
             </div>
           </div>
           <button
           v-if="popElem.hideButton"
-          @click="hideTextButton()"
+          @click="hideTextButton(index)"
           type="button"
           >
-          {{hideButton}}
+          {{popElem.hideButton}}
           </button>
         </div>
       </div>
@@ -116,23 +115,16 @@ export default {
         this.navbarElems[0].catalogIcon = 'times'
       }
     },
-    hideTextButton () {
-      this.isActive = !this.isActive
-      if (this.isVisible === false) {
-        this.hideButton = 'Показать'
+    hideTextButton (index) {
+      if (this.popElems[index].popElemTexts[6].isActive == false) {
+        this.popElems[index].hideButton = 'Скрыть'
+        this.popElems[index].popElemTexts[6].isActive = !this.popElems[index].popElemTexts[6].isActive
+        console.log('1 часть' + this.popElems[index].hideButton + this.popElems[index].popElemTexts[6].isActive)
       } else {
-        this.hideButton = 'Скрыть'
+        this.popElems[index].hideButton = 'Показать'
+        this.popElems[index].popElemTexts[6].isActive = !this.popElems[index].popElemTexts[6].isActive
       }
     }
-    // popupIsHidden (popElemTexts) {
-    //   for (var i = 0; i < this.popElems.length; i++) {
-    //     if (this.popElems[i].popElemTexts.length > 5) {
-    //       this.isHidden = true
-    //     } else {
-    //       this.isHidden = false
-    //     }
-    //   }
-    // }
   },
   watch: {
 
@@ -141,7 +133,6 @@ export default {
     return {
       isVisible: false,
       isHidden: false,
-      isActive: false,
       hideButton: 'Показать',
       catalogIcon: 'bars',
       navbarElems: [
@@ -177,7 +168,6 @@ export default {
       ],
       popElems: [
         {
-          hideButton: false,
           popElemTexts: [
             {
               url: 'popup-img1.png',
@@ -202,7 +192,7 @@ export default {
           ]
         },
         {
-          hideButton: true,
+          hideButton: 'Показать',
           popElemTexts: [
             {
               url: 'popup-img2.png',
@@ -229,7 +219,7 @@ export default {
               title: 'Мониторы'
             },
             {
-              isActive: true,
+              isActive: false,
               url: '',
               popElemTextLasts: [
                 {
@@ -240,7 +230,7 @@ export default {
           ]
         },
         {
-          hideButton: true,
+          hideButton: 'Показать',
           popElemTexts: [
             {
               url: 'popup-img3.png',
@@ -267,7 +257,7 @@ export default {
               title: 'Стиральные машины'
             },
             {
-              isActive: true,
+              isActive: false,
               url: '',
               popElemTextLasts: [
                 {
@@ -281,7 +271,7 @@ export default {
           ]
         },
         {
-          hideButton: true,
+          hideButton: 'Показать',
           popElemTexts: [
             {
               url: 'popup-img4.png',
@@ -308,7 +298,7 @@ export default {
               title: 'Подписки Xbox'
             },
             {
-              isActive: true,
+              isActive: false,
               url: '',
               popElemTextLasts: [
                 {
@@ -324,7 +314,7 @@ export default {
           ]
         },
         {
-          hideButton: true,
+          hideButton: 'Показать',
           popElemTexts: [
             {
               url: 'popup-img5.png',
@@ -351,7 +341,7 @@ export default {
               title: 'Наушники'
             },
             {
-              isActive: true,
+              isActive: false,
               url: '',
               popElemTextLasts: [
                 {
@@ -367,7 +357,7 @@ export default {
           ]
         },
         {
-          hideButton: true,
+          hideButton: 'Показать',
           popElemTexts: [
             {
               url: 'popup-img6.png',
@@ -394,7 +384,7 @@ export default {
               title: 'Штативы'
             },
             {
-              isActive: true,
+              isActive: false,
               url: '',
               popElemTextLasts: [
                 {
@@ -410,7 +400,7 @@ export default {
           ]
         },
         {
-          hideButton: true,
+          hideButton: 'Показать',
           popElemTexts: [
             {
               url: 'popup-img7.png',
@@ -437,7 +427,7 @@ export default {
               title: 'Хлебопечи'
             },
             {
-              isActive: true,
+              isActive: false,
               url: '',
               popElemTextLasts: [
                 {
@@ -465,7 +455,7 @@ export default {
           ]
         },
         {
-          hideButton: true,
+          hideButton: 'Показать',
           popElemTexts: [
             {
               url: 'popup-img8.png',
@@ -492,7 +482,7 @@ export default {
               title: 'Электробритвы'
             },
             {
-              isActive: true,
+              isActive: false,
               url: '',
               popElemTextLasts: [
                 {
@@ -587,6 +577,10 @@ export default {
             display: flex;
             flex-direction: column;
             align-items: baseline;
+
+            .active {
+              display: block;
+            }
           }
           &:first-child {
             font-weight: bold;

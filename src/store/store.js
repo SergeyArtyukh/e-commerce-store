@@ -31,15 +31,15 @@ const store = new Vuex.Store({
         state.cart.push(product)
       }
     },
-    SET_FAVORITE: (state, product) => {
+    SET_FAVORITE: (state, product, index) => {
         if (state.favorite.length) {
           let isProductFavorite = false;
           state.favorite.map(function (item) {
             if (item.id === product.id) {
               isProductFavorite = true;
               product.isFavorite = !product.isFavorite;
-              state.favorite.splice(product.id)
-              console.log(product.id +'1 колонка');
+              state.favorite.splice(product.id, 1)
+              console.log(index +'1 колонка');
             }
           })
           if (!isProductFavorite) {
@@ -81,24 +81,8 @@ const store = new Vuex.Store({
     SPLICE_CART: (state, index) => {
       state.cart.splice(index, 1)
     },
-    SPLICE_FAVORITE: (state, productInFavorite) => {
-      if (state.favorite.length) {
-        let isProductFavorite = false;
-        state.favorite.map(function (item) {
-          if (item.id === productInFavorite.id) {
-            isProductFavorite = !isProductFavorite;
-            state.favorite.splice(productInFavorite.id, 1)
-            console.log('1 колонка');
-          }
-        })
-        if (!isProductFavorite) {
-          state.favorite.splice(productInFavorite.id, 1)
-          // console.log(productInFavorite + '2колонка');
-        }
-      } else {
-        state.favorite.splice(productInFavorite.id, 1)
-        // console.log( '3 колонка');
-      }
+    SPLICE_FAVORITE: (state, index) => {
+      state.favorite.splice(index, 1)
     },
     INCREMENT: (state, index) => {
       state.cart[index].quantity++

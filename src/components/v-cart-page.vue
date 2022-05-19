@@ -19,7 +19,7 @@
           <div class="product-info">
             <span>{{product.text}}</span>
             <div class="product-buttons-container">
-              <span class="favorite-button" :class="{addedToFavorite: isFavorite}">
+              <span class="favorite-button" :class="{'active': product.isFavorite}">
                 <font-awesome-icon :icon="product.iconFavorite"/>
                 <button @click="addToFavorite(product)" type="button">В избранное</button>
               </span>
@@ -155,6 +155,12 @@ p {
             text-align: left;
             margin-top: 20px;
             .addedToFavorite {
+              svg,
+              button {
+                color: green;
+              }
+            }
+            .active {
               svg,
               button {
                 color: green;
